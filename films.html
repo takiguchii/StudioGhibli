@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/films.css">
+</head>
+<body>
+    <div class="container" id="film-detail"></div>
+
+</body>
+
+<button id="Return">Retornar a Pagina</button>
+    
+<script>
+    const params = new URLSearchParams(window.location.search);
+    let filmId = params.get('id');
+    const container = document.getElementById("film-detail");
+    const ReturnButton = document.getElementById("Return");
+
+
+    async function getFilm(id) {
+        try {
+            container.innerHTML = "Carregando...";
+            const response = await fetch(`https://ghibliapi.vercel.app/films/${id}`);
+            const film = await response.json();
+            console.log(film);
+            container.innerHTML = `
+                <img src="${film.movie_banner}" alt="">
+                <h2>${film.title } </h2>
+                <h3> Titulo Original: ${film.original_title} </h3>
+                <div class="Info">
+                    <h3>Sinopse</h3>
+                    <p><strong> ${film.description}</strong></p>
+                    <hr>
+                    <h3>Produção</h3>
+                    <p><strong>Diretor: ${film.director}</strong></p>
+                    <p><strong>Produtor: ${film.producer}</strong></p>
+                    <p><strong>Lançamento: ${film.release_date}</strong></p>
+                    <hr>
+
+                </div>
+            `;
+            card.addEventListener("click", () => {
+                        console.log("Clicou no card");
+                    });
+        } catch (error) {
+            console.error("Erro ao carregar filme", error);
+        }
+    }
+    ReturnButton.addEventListener("click", () => {
+            window.location.href = `index.html`;
+    });
+
+
+    document.addEventListener("DOMContentLoaded", () => getFilm(filmId));
+</script>
+</html>

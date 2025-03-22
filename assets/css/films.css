@@ -1,0 +1,44 @@
+body{
+    background-image: url(../image/cat\ neko\ GIF.gif); 
+    background-size: cover; /* Isso faz o GIF cobrir toda a tela */
+    background-position: center; /* Posiciona o GIF no centro */
+    background-repeat: no-repeat; /* Faz com que o GIF não se repita */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #282c34;
+    color: white;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #3c3f47;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.container:hover{
+    box-shadow: 0 0 100px rgba(97, 218, 251, 0.7);
+}
+
+img{
+    width: 100%;
+    border-radius: 10px;
+}
+.Info{
+    text-align: left;
+    margin-top: 10px;
+}
+
+#Return{
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: whitesmoke;
+    color: black;
+}

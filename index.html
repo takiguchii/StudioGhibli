@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Filmes Ghibli</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+<body>
+
+    <div class="buscador">
+            <input type="text" id="search-input" placeholder="Buscar filme...">
+            <button id="search-button">Pesquisar</button>
+    </div>
+    
+
+    <h1><font color="#FFFFFF">Catálogo de Filmes do Studio Ghibli</font></h1>
+
+    
+    <div class="container" id="film-container"></div>
+
+
+    <script>
+        async function getFilms() {
+            try {
+                const response = await fetch("https://ghibliapi.vercel.app/films");
+                const data = await response.json();
+                
+                const container = document.getElementById("film-container");
+                container.innerHTML = ""; 
+
+                data.forEach(film => {
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    card.innerHTML = `
+                        <img src="${film.image}" alt="${film.title}">
+                        <h2><font color="#FFFFFF"> ${film.title} </font> </h2>
+                        <p><font color = "FFFFFF"> ${film.release_date}</font> </p>
+                    `;
+                    card.addEventListener("click", () => {
+                        window.location.href = `films.html?id=${film.id}`;
+                    });
+
+                    container.appendChild(card);
+                });
+
+
+            } catch (error) {
+                console.error("Erro ao carregar os filmes", error);
+            }
+        }
+        document.getElementById("search-button").addEventListener("click", function() {
+        const searchInput = document.getElementById("search-input");  
+        const movieTitle = searchInput.value.trim();  
+            if (movieTitle) {  
+            window.location.href = `films.html?title=${movieTitle}`;
+            } else {
+            alert("Por favor, digite o nome de um filme.");
+            }
+        });
+
+
+
+
+        // Chama a função ao carregar a página
+        document.addEventListener("DOMContentLoaded", getFilms);
+    </script>
+</body>
+</html>
