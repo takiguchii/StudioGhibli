@@ -1,8 +1,8 @@
 body{
-    background-image: url(../image/cat\ neko\ GIF.gif); 
-    background-size: cover; /* Isso faz o GIF cobrir toda a tela */
-    background-position: center; /* Posiciona o GIF no centro */
-    background-repeat: no-repeat; /* Faz com que o GIF não se repita */
+    background-image: url(../image/studio\ ghibli\ GIF\ \(1\).gif); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #282c34;

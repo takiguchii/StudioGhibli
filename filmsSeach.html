@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Filme</title>
+    <link rel="stylesheet" href="./assets/css/films.css">
+</head>
+<body>
+    <div class="container" id="film-detail"></div>
+
+    <button id="Return">Retornar à Página Inicial</button>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        let filmTitle = params.get('title'); 
+        const container = document.getElementById("film-detail");
+        const ReturnButton = document.getElementById("Return");
+
+        async function getFilm(title) {
+            try {
+                container.innerHTML = "Carregando...";
+                const response = await fetch(`https://ghibliapi.vercel.app/films?title=${title}`);
+                const films = await response.json();
+
+                if (films.length === 0) {
+                    container.innerHTML = "<h2>Filme não encontrado</h2>";
+                    return;
+                }
+                const film = films[0]; 
+                console.log(film);
+
+                container.innerHTML = `
+                    <img src="${film.movie_banner}" alt="">
+                    <h2>${film.title}</h2>
+                    <h3>Título Original: ${film.original_title}</h3>
+                    <div class="Info">
+                        <h3>Sinopse</h3>
+                        <p><strong>${film.description}</strong></p>
+                        <hr>
+                        <h3>Produção</h3>
+                        <p><strong>Diretor: ${film.director}</strong></p>
+                        <p><strong>Produtor: ${film.producer}</strong></p>
+                        <p><strong>Lançamento: ${film.release_date}</strong></p>
+                        <hr>
+                    </div>
+                `;
+            } catch (error) {
+                console.error("Erro ao carregar filme", error);
+                container.innerHTML = "<h2>Erro ao carregar os detalhes do filme</h2>";
+            }
+        }
+
+        ReturnButton.addEventListener("click", () => {
+            window.location.href = `index.html`;
+        });
+
+        document.addEventListener("DOMContentLoaded", () => getFilm(filmTitle));
+    </script>
+</body>
+</html>
